@@ -1,3 +1,10 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const dbg = document.createElement("div");
+  dbg.textContent = "script.js loaded ✅";
+  dbg.style.cssText = "position:fixed;top:8px;left:8px;z-index:99999;padding:8px 10px;background:#fff;border:2px solid #000;border-radius:10px;font-weight:800";
+  document.body.appendChild(dbg);
+});
+
 // --- DATA (later: move this into /data/cards.json) ---
 const deck = [
   {
