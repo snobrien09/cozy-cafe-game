@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Cozy Café Cards</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">🐾</div>
+        <div>
+          <div class="title">Cozy Café</div>
+          <div class="subtitle">Swipe right = YES • left = NO</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="meters">
+      <div class="meter">
+        <div class="label">Cozy</div>
+        <div class="bar"><div id="cozyFill" class="fill"></div></div>
+        <div id="cozyNum" class="num">50</div>
+      </div>
+      <div class="meter">
+        <div class="label">Mischief</div>
+        <div class="bar"><div id="mischiefFill" class="fill"></div></div>
+        <div id="mischiefNum" class="num">50</div>
+      </div>
+    </section>
+
+    <section class="cardWrap">
+      <div id="card" class="card" aria-label="Card">
+        <div class="cardHeader">
+          <span id="tag" class="tag">Resident</span>
+          <span id="turn" class="turn">Turn 1</span>
+        </div>
+        <div id="prompt" class="prompt">…</div>
+        <div class="hintRow">
+          <span class="hint">← NO</span>
+          <span class="hint">YES →</span>
+        </div>
+      </div>
+
+      <div id="toast" class="toast hidden"></div>
+      <div id="ending" class="ending hidden">
+        <div id="endingText" class="endingText"></div>
+        <button id="restart" class="btn primary">Restart</button>
+      </div>
+    </section>
+
+    <footer class="controls">
+      <button id="noBtn" class="btn secondary">No</button>
+      <button id="yesBtn" class="btn primary">Yes</button>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
