@@ -32,7 +32,10 @@
     </section>
 
     <section class="cardWrap">
-      <canvas id="game" class="scene"></canvas>
+      <!-- Background scene canvas -->
+      <canvas id="scene" class="scene" aria-label="Scene background"></canvas>
+
+      <!-- Card UI on top -->
       <div id="card" class="card" aria-label="Card">
         <div class="cardHeader">
           <span id="tag" class="tag">Resident</span>
@@ -46,6 +49,7 @@
       </div>
 
       <div id="toast" class="toast hidden"></div>
+
       <div id="ending" class="ending hidden">
         <div id="endingText" class="endingText"></div>
         <button id="restart" class="btn primary">Restart</button>
