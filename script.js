@@ -168,6 +168,7 @@ function applyChoice(card, choice, s) {
 }
 
 function checkEnding(s) {
+  alert ("Cozy is: " + s.cozy); 
   if (s.cozy <= 0)
     return "Ending: The cafe loses its warmth.\nEveryone politely drifts away.";
 
