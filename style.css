@@ -243,7 +243,6 @@ body{
   box-shadow: var(--shadow);
 }
 .endingText{font-size:18px; font-weight:800; line-height:1.35}
-.hidden{display:none}
 
 /* --- Pixel VN override --- */
 
@@ -257,3 +256,6 @@ body{
   box-shadow: 3px 3px 0 var(--ink) !important;
   background: #fff !important;
 }
+
+.hidden{display:none !important; }
+.ending.hidden { display: none !important; }
