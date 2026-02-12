@@ -168,8 +168,8 @@ function applyChoice(card, choice, s) {
 }
 
 function checkEnding(s) {
-  if (s.cozy <= 0) return "Ending: The café loses its warmth.\nEveryone politely… stops lingering.";
-  if (s.mischief >= 100) return "Ending: Mischief overload!\nThe café becomes a chaos cuddle-pile.";
+  if (s.cozy <= 0) return "Ending: The cafe loses its warmth.\nEveryone politely... stops lingering.";
+  if (s.mischief >= 100) return "Ending: Mischief overload!\nThe cafe becomes a chaos cuddle-pile.";
   if (s.idx >= deck.length) return "Ending: Cozy balance achieved.\nThe island feels like home.";
   return null;
 }
