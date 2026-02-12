@@ -285,5 +285,81 @@ cardEl.addEventListener("touchend", () => {
   else if (dx < -threshold) choose("no");
 });
 
+// --- PIXEL SCENE (Pufflet) ---
+
+const canvas = document.getElementById("scene");
+const ctx = canvas.getContext("2d");
+
+// Pixel resolution
+const LOGICAL_W = 160;
+const LOGICAL_H = 90;
+const SCALE = 4;
+
+canvas.width = LOGICAL_W * SCALE;
+canvas.height = LOGICAL_H * SCALE;
+ctx.imageSmoothingEnabled = false;
+
+// Offscreen low-res buffer
+const off = document.createElement("canvas");
+off.width = LOGICAL_W;
+off.height = LOGICAL_H;
+const octx = off.getContext("2d");
+octx.imageSmoothingEnabled = false;
+
+let pufflet = {
+  x: 60,
+  y: 50,
+  vx: 0.8,
+  vy: 0.6,
+  r: 10
+};
+
+let t = 0;
+
+function drawScene() {
+  t++;
+
+  // Clear offscreen
+  octx.clearRect(0, 0, LOGICAL_W, LOGICAL_H);
+
+  // Background
+  octx.fillStyle = "#f7e6d6";
+  octx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+
+  // Move pufflet
+  pufflet.x += pufflet.vx;
+  pufflet.y += pufflet.vy;
+
+  if (pufflet.x < pufflet.r || pufflet.x > LOGICAL_W - pufflet.r) pufflet.vx *= -1;
+  if (pufflet.y < pufflet.r || pufflet.y > LOGICAL_H - pufflet.r) pufflet.vy *= -1;
+
+  // Size reacts to Cozy
+  const grow = 1 + (state.cozy / 100) * 0.4;
+  const R = pufflet.r * grow;
+
+  // Body
+  octx.fillStyle = "#ff9fbb";
+  octx.beginPath();
+  octx.arc(pufflet.x, pufflet.y, R, 0, Math.PI * 2);
+  octx.fill();
+
+  // Outline
+  octx.strokeStyle = "#2b241f";
+  octx.lineWidth = 2;
+  octx.stroke();
+
+  // Eyes
+  octx.fillStyle = "#2b241f";
+  octx.fillRect(pufflet.x - 3, pufflet.y - 2, 2, 2);
+  octx.fillRect(pufflet.x + 1, pufflet.y - 2, 2, 2);
+
+  // Blit scaled
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
+
+  requestAnimationFrame(drawScene);
+}
+
+drawScene();
 // Init
 render(state);
