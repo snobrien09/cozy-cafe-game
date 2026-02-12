@@ -180,7 +180,7 @@ function checkEnding(s) {
   if (s.mischief <= 0)
     return "Ending: Perfect Order.\nEverything is calm... perhaps too calm.";
 
-  if (s.idx >= deck.length)
+  if (deck.length > 0 && s.idx >= deck.length)
     return "Ending: Cozy Balance Achieved.\nThe island feels like home.";
 
   return null;
