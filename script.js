@@ -232,6 +232,7 @@ function render(s) {
     noBtn.disabled = true;
   } else {
     endingEl.classList.add("hidden");
+    endingText.textContent = "";   // add this line
     yesBtn.disabled = false;
     noBtn.disabled = false;
   }
