@@ -1,9 +1,6 @@
 // --- DATA (later: move this into /data/cards.json) ---
 const deck = [
   {
-const 
-
-  {
     id: "intro_owner",
     tag: "Resident",
     prompt: "The cat café owner slides you a warm mug and a warmer joke. Let them set the tone for the day?",
