@@ -250,6 +250,8 @@ function choose(choice) {
   const card = getCard(state);
   state = applyChoice(card, choice, state);
   showToast(state._lastResult);
+  // Pufflet reaction hop
+  pufflet.vy -= (choice === "yes" ? 1.2 : 0.7);
   render(state);
 }
 
@@ -308,7 +310,8 @@ canvas.height = LOGICAL_H * SCALE;
 ctx.imageSmoothingEnabled = false;
 
 // Offscreen low-res buffer
-const off = document.createElement("canvas");
+const off = new Image(); 
+bg.src = "assets/greenhouse_bg.png";
 off.width = LOGICAL_W;
 off.height = LOGICAL_H;
 const octx = off.getContext("2d");
@@ -330,9 +333,25 @@ function drawScene() {
   // Clear offscreen
   octx.clearRect(0, 0, LOGICAL_W, LOGICAL_H);
 
-  // Background
-  octx.fillStyle = "#f7e6d6";
+  // Background (greenhouse)
+  if (bg.complete && bg.naturalWidth) {
+    octx.drawImage(bg, 0, 0, LOGICAL_W, LOGICAL_H);
+  } else {
+    octx.fillStyle = "#f7e6d6";
+    octx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+  }
+
+  // Cozy warm tint
+  octx.globalAlpha = 0.18 * (state.cozy / 100);
+  octx.fillStyle = "#ffd9a8";
   octx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+  
+  // Mischief purple tint
+  octx.globalAlpha = 0.14 * (state.mischief / 100);
+  octx.fillStyle = "#d6b3ff";
+  octx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+  
+  octx.globalAlpha = 1;
 
   // Move pufflet
   pufflet.x += pufflet.vx;
@@ -360,6 +379,16 @@ function drawScene() {
   octx.fillStyle = "#2b241f";
   octx.fillRect(pufflet.x - 3, pufflet.y - 2, 2, 2);
   octx.fillRect(pufflet.x + 1, pufflet.y - 2, 2, 2);
+
+  // Dust particles
+  octx.fillStyle = "#ffffff";
+  octx.globalAlpha = 0.2;
+  for (const p of dust) {
+    p.x = (p.x + p.s * 0.2) % LOGICAL_W;
+    p.y = (p.y + p.s * 0.1) % LOGICAL_H;
+    octx.fillRect(p.x|0, p.y|0, 1, 1);
+}
+octx.globalAlpha = 1;
 
   // Blit scaled
   ctx.clearRect(0, 0, canvas.width, canvas.height);
