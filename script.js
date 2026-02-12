@@ -171,10 +171,10 @@ function checkEnding(s) {
   if (s.cozy <= 0)
     return "Ending: The cafe loses its warmth.\nEveryone politely drifts away.";
 
-  if (s.cozy >= 100)
+  if (s.cozy = 100)
     return "Ending: Peak Cozy Achieved.\nThe cafe becomes a sanctuary of soft light and purring harmony.";
 
-  if (s.mischief >= 100)
+  if (s.mischief = 100)
     return "Ending: Mischief Overload!\nThe cafe becomes a chaos cuddle-pile.";
 
   if (s.mischief <= 0)
