@@ -198,6 +198,9 @@ const promptEl = document.getElementById("prompt");
 const toastEl = document.getElementById("toast");
 const endingEl = document.getElementById("ending");
 const endingText = document.getElementById("endingText");
+// Force ending overlay hidden on load (prevents "stuck ending" from showing)
+endingEl.classList.add("hidden");
+endingText.textContent = "";
 const restartBtn = document.getElementById("restart");
 
 const cardEl = document.getElementById("card");
@@ -232,7 +235,7 @@ function render(s) {
     noBtn.disabled = true;
   } else {
     endingEl.classList.add("hidden");
-    endingText.textContent = "";   // add this line
+    endingText.textContent = "";   
     yesBtn.disabled = false;
     noBtn.disabled = false;
   }
