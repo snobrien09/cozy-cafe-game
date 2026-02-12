@@ -5,50 +5,7 @@
   --panel:#fff3e3;
   --accent:#ff9fbb;
   --accent2:#aee8d1;
-}
 
-/* Pixel window panel */
-.pixelPanel{
-  background: var(--panel);
-  border: 3px solid var(--ink);
-  box-shadow: 6px 6px 0 var(--ink);
-  border-radius: 10px; /* slightly rounded like modern pixel-anime UI */
-}
-
-/* Use pixelPanel styling for card + map (NOT the scene canvas) */
-.card, .mapScreen{
-  background: var(--panel) !important;
-  border: 3px solid var(--ink) !important;
-  box-shadow: 6px 6px 0 var(--ink) !important;
-}
-
-/* Chunkier buttons */
-.btn{
-  border: 3px solid var(--ink) !important;
-  box-shadow: 4px 4px 0 var(--ink) !important;
-  border-radius: 12px !important;
-}
-
-.btn.primary{
-  background: linear-gradient(180deg, var(--accent), #ff86a9) !important;
-}
-
-.btn.secondary{
-  background: linear-gradient(180deg, #ffffff, #ffeede) !important;
-}
-
-/* Pixel bars */
-.bar{
-  height: 14px !important;
-  border: 3px solid var(--ink) !important;
-  background: #f2dcc8 !important;
-}
-.fill{
-  transition: width 160ms steps(10, end) !important; /* pixel-y motion */
-  background: linear-gradient(90deg, var(--accent), var(--accent2)) !important;
-}
-
-:root{
   --cream:#fff7ee;
   --peach:#ffd7c2;
   --mint:#c9f2df;
@@ -59,8 +16,9 @@
   --radius: 22px;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
 body{
   margin:0;
   font-family:-apple-system, system-ui, Segoe UI, Roboto, Arial, sans-serif;
@@ -71,6 +29,7 @@ body{
     linear-gradient(180deg, var(--cream), #ffffff);
 }
 
+/* App layout */
 .app{
   max-width:520px;
   margin:0 auto;
@@ -86,6 +45,7 @@ body{
   gap:12px;
   align-items:center;
 }
+
 .logo{
   width:44px;height:44px;border-radius:14px;
   display:grid;place-items:center;
@@ -94,69 +54,72 @@ body{
   border:1px solid rgba(90,71,65,.12);
   font-size:22px;
 }
-.title{font-weight:800; letter-spacing:.2px; font-size:20px}
-.subtitle{color:rgba(58,47,43,.68); font-size:12.5px; margin-top:2px}
 
-.meters{display:grid; gap:10px}
-.meter{display:grid; grid-template-columns:70px 1fr 36px; align-items:center; gap:10px}
-.label{font-size:13px; color:rgba(58,47,43,.72)}
-.num{font-variant-numeric:tabular-nums; text-align:right; color:rgba(58,47,43,.72)}
+.title{ font-weight:800; letter-spacing:.2px; font-size:20px; }
+.subtitle{ color:rgba(58,47,43,.68); font-size:12.5px; margin-top:2px; }
+
+/* Meters */
+.meters{ display:grid; gap:10px; }
+.meter{ display:grid; grid-template-columns:70px 1fr 36px; align-items:center; gap:10px; }
+.label{ font-size:13px; color:rgba(58,47,43,.72); }
+.num{ font-variant-numeric:tabular-nums; text-align:right; color:rgba(58,47,43,.72); }
+
 .bar{
-  height:10px; border-radius:999px; overflow:hidden;
-  background: rgba(90,71,65,.10);
+  height: 14px;
+  border: 3px solid var(--ink);
+  background: #f2dcc8;
+  border-radius: 999px;
+  overflow:hidden;
 }
+
 .fill{
   height:100%;
   width:50%;
-  border-radius:999px;
-  background: linear-gradient(90deg, #ffb3c7, #aee8d1);
-  transition: width 220ms ease;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 160ms steps(10, end);
 }
 
+/* --- Scene + Card Wrap --- */
 .cardWrap{
   position:relative;
   flex:1;
+  min-height: 360px;      /* IMPORTANT: gives the scene real height */
   display:grid;
   place-items:center;
-}
-
-/* --- Scene canvas as background layer --- */
-.cardWrap{
-  position: relative;
-  overflow: hidden;
+  overflow:hidden;
+  border-radius: var(--radius);
 }
 
 /* canvas background layer */
 .scene{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  z-index: 0;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  z-index:0;
 
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  background:transparent !important;
 
   image-rendering: pixelated;
 }
 
-/* UI on top */
-.card, .toast, .ending{
-  position: relative;
-  z-index: 1;
-}
-
+/* Card (UI layer) */
 .card{
+  position:relative;
+  z-index:1;
+
   width:100%;
   min-height:280px;
   padding:16px;
   border-radius:var(--radius);
-  background:var(--card);
-  box-shadow:var(--shadow);
-  border:1px solid rgba(90,71,65,.12);
-  backdrop-filter: none;
+
+  background: var(--panel);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+
   user-select:none;
   touch-action: pan-y;
   transform: translateX(0) rotate(0);
@@ -183,154 +146,96 @@ body{
 }
 
 .tag{
-  
-f
-ont-size:12px;
+  font-size:12px;
   padding:6px 10px;
   border-radius:999px;
-  background:#
-f
-f
-f
-f
-f
-f
-b8;
-  border:1px solid rgba(90,71,65,.12);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  background:#fff;
 }
 
-.turn{
-f
-ont-size:12px; color:rgba(58,47,43,.65)}
+.turn{ font-size:12px; color:rgba(58,47,43,.65); }
+
 .prompt{
   position:relative;
   z-index:1;
   margin:18px 0 20px;
-  
-f
-ont-size:18px;
+  font-size:18px;
   line-height:1.35;
-  
-f
-ont-weight:650;
+  font-weight:800;
+  letter-spacing:0.2px;
 }
 
 .hintRow{
   position:relative;
   z-index:1;
-  display:f
-lex;
-  justi
-f
-y-content:space-between;
-  
-f
-ont-size:12px;
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
   color:rgba(58,47,43,.38);
   letter-spacing:.12em;
 }
 
+/* Controls */
 .controls{
   display:grid;
-  grid-template-columns:1f
-r 1f
-r;
+  grid-template-columns:1fr 1fr;
   gap:12px;
 }
 
 .btn{
-  border:none;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  border-radius: 12px;
   padding:14px 14px;
-  border-radius:16px;
-  
-f
-ont-weight:800;
-  f
-ont-size:16px;
+  font-weight:800;
+  font-size:16px;
+  cursor:pointer;
 }
 
 .btn.primary{
-  background: linear-gradient(180deg, #
-f
-f
-b3c7, #
-f
-f
-a0b8);
-  color: #3a2
-f
-2b;
-  box-shadow: 0 10px 24px rgba(255,160,184,.35);
-}
-.btn.secondary{
-  background:#
-f
-f
-f
-f
-f
-f
-b8;
-  color:#3a2
-f
-2b;
-  border:1px solid rgba(90,71,65,.14);
+  background: linear-gradient(180deg, var(--accent), #ff86a9);
+  color:#3a2f2b;
 }
 
+.btn.secondary{
+  background: linear-gradient(180deg, #ffffff, #ffeede);
+  color:#3a2f2b;
+}
+
+/* Toast + Ending on top */
 .toast{
   position:absolute;
+  z-index:2;
   bottom:78px;
-  le
-f
-t:14px; right:14px;
+  left:14px; right:14px;
   padding:12px 12px;
   border-radius:16px;
-  background:#
-f
-f
-f
-f
-f
-f
-de;
-  border:1px solid rgba(90,71,65,.12);
-  box-shadow: 0 12px 30px rgba(58,47,43,.16);
+  background:#ffffffde;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
   text-align:center;
-  
-f
-ont-weight:700;
+  font-weight:800;
 }
 
 .ending{
   position:absolute;
+  z-index:3;
   inset:0;
   border-radius:var(--radius);
   background: rgba(255,247,238,.92);
-  border:1px solid rgba(90,71,65,.12);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
   display:grid;
   place-items:center;
   padding:18px;
   text-align:center;
-  box-shadow: var(--shadow);
 }
+
 .endingText{
-f
-ont-size:18px; 
-f
-ont-weight:800; line-height:1.35}
-
-/* --- Pixel VN override --- */
-
-.prompt{
-  font-weight: 800 !important;
-  letter-spacing: 0.2px;
+  font-size:18px;
+  font-weight:800;
+  line-height:1.35;
 }
 
-.tag{
-  border: 3px solid var(--ink) !important;
-  box-shadow: 3px 3px 0 var(--ink) !important;
-  background: #fff !important;
-}
-
-.hidden{display:none !important; }
-.ending.hidden { display: none !important; }
+.hidden{ display:none !important; }
