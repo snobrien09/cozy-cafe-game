@@ -1,3 +1,63 @@
+/* --- PIXEL UI THEME --- */
+:root{
+  --ink:#2b241f;
+  --paper:#fff7ee;
+  --panel:#fff3e3;
+  --accent:#ff9fbb;
+  --accent2:#aee8d1;
+}
+
+/* Pixel-ish edges + crisp rendering */
+html, body{
+  image-rendering: pixelated;
+}
+
+body{
+  background:
+    linear-gradient(180deg, #f7e6d6 0%, #fff7ee 45%, #f4fff9 100%);
+}
+
+/* Pixel window panel */
+.pixelPanel{
+  background: var(--panel);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  border-radius: 10px; /* slightly rounded like modern pixel-anime UI */
+}
+
+/* Use pixelPanel styling for card + map + scene */
+.card, .mapScreen, .scene{
+  background: var(--panel) !important;
+  border: 3px solid var(--ink) !important;
+  box-shadow: 6px 6px 0 var(--ink) !important;
+}
+
+/* Chunkier buttons */
+.btn{
+  border: 3px solid var(--ink) !important;
+  box-shadow: 4px 4px 0 var(--ink) !important;
+  border-radius: 12px !important;
+}
+
+.btn.primary{
+  background: linear-gradient(180deg, var(--accent), #ff86a9) !important;
+}
+
+.btn.secondary{
+  background: linear-gradient(180deg, #ffffff, #ffeede) !important;
+}
+
+/* Pixel bars */
+.bar{
+  height: 14px !important;
+  border: 3px solid var(--ink) !important;
+  background: #f2dcc8 !important;
+}
+.fill{
+  transition: width 160ms steps(10, end) !important; /* pixel-y motion */
+  background: linear-gradient(90deg, var(--accent), var(--accent2)) !important;
+}
+
 :root{
   --cream:#fff7ee;
   --peach:#ffd7c2;
@@ -184,3 +244,16 @@ body{
 }
 .endingText{font-size:18px; font-weight:800; line-height:1.35}
 .hidden{display:none}
+
+/* --- Pixel VN override --- */
+
+.prompt{
+  font-weight: 800 !important;
+  letter-spacing: 0.2px;
+}
+
+.tag{
+  border: 3px solid var(--ink) !important;
+  box-shadow: 3px 3px 0 var(--ink) !important;
+  background: #fff !important;
+}
