@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Debug badge (optional—delete later)
   const dbg = document.createElement("div");
   dbg.textContent = "script.js loaded ✅";
-  dbg.style.cssText = "position:fixed;top:8px;left:8px;z-index:99999;padding:8px 10px;background:#fff;border:2px solid #000;border-radius:10px;font-weight:800";
+  dbg.style.cssText =
+    "position:fixed;top:8px;left:8px;z-index:99999;padding:8px 10px;background:#fff;border:2px solid #000;border-radius:10px;font-weight:800";
   document.body.appendChild(dbg);
 });
 
@@ -62,94 +64,10 @@ const deck = [
     prompt: "The blob begins to faintly glow after eating crumbs. Celebrate it?",
     yes: { cozy: +6, mischief: +6, result: "The cafe gasps in collective awe." },
     no:  { cozy: +3, mischief: -4, result: "You dim the lights. Calm over spectacle." }
-  },
-  {
-    id: "gossip",
-    tag: "Resident",
-    prompt: "Two customers whisper heated gossip about the cafe. Confront them?",
-    yes: { cozy: +4, mischief: -6, result: "Boundaries restore peace." },
-    no:  { cozy: -6, mischief: +6, result: "The rumor mill spins." }
-  },
-  {
-    id: "blob_hide",
-    tag: "Creature",
-    prompt: "The blob hides inside a teacup and refuses to come out. Coax it gently?",
-    yes: { cozy: +7, mischief: +2, result: "It peeks out, trusting you." },
-    no:  { cozy: -3, mischief: -2, result: "It sulks quietly." }
-  },
-  {
-    id: "festival",
-    tag: "Island",
-    prompt: "The island hosts a lantern festival tonight. Keep the cafe open late?",
-    yes: { cozy: +8, mischief: +5, result: "Lantern light dances through the windows." },
-    no:  { cozy: -2, mischief: -4, result: "A quieter evening settles in." }
-  },
-  {
-    id: "cat_argument",
-    tag: "Resident",
-    prompt: "Two cafe cats argue over a sunbeam. Intervene?",
-    yes: { cozy: +5, mischief: -3, result: "Peace returns to the cushions." },
-    no:  { cozy: -3, mischief: +5, result: "Tiny paw drama unfolds." }
-  },
-  {
-    id: "blob_split",
-    tag: "Creature",
-    prompt: "The blob briefly splits into two smaller blobs. Encourage this?",
-    yes: { cozy: +4, mischief: +12, result: "Double the wiggle. Double the chaos." },
-    no:  { cozy: +6, mischief: -4, result: "It merges back, slightly embarrassed." }
-  },
-  {
-    id: "review",
-    tag: "Resident",
-    prompt: "A critic visits the cafe anonymously. Treat them like any other guest?",
-    yes: { cozy: +6, mischief: -2, result: "Authenticity shines." },
-    no:  { cozy: -4, mischief: +5, result: "The tension feels... performative." }
-  },
-  {
-    id: "blob_name",
-    tag: "Creature",
-    prompt: "The regulars want to name the blob 'Pufflet.' Approve the name?",
-    yes: { cozy: +8, mischief: +3, result: "Pufflet wiggles proudly." },
-    no:  { cozy: -2, mischief: +2, result: "The blob seems slightly offended." }
-  },
-  {
-    id: "midnight_baking",
-    tag: "Island",
-    prompt: "Midnight baking session? The smell might attract... attention.",
-    yes: { cozy: +5, mischief: +10, result: "The island lights flicker playfully." },
-    no:  { cozy: +4, mischief: -3, result: "A peaceful sleep settles in." }
-  },
-  {
-    id: "blob_taller",
-    tag: "Creature",
-    prompt: "The blob stretches taller than before. Encourage its growth?",
-    yes: { cozy: +6, mischief: +8, result: "It looks almost majestic." },
-    no:  { cozy: +5, mischief: -4, result: "It shrinks back into a comfy puff." }
-  },
-  {
-    id: "cat_cuddle_event",
-    tag: "Resident",
-    prompt: "Host a public 'Cuddle Hour' with the cats?",
-    yes: { cozy: +12, mischief: +4, result: "The cafe becomes a purring cloud." },
-    no:  { cozy: -4, mischief: -3, result: "Order remains. Fewer furballs." }
-  },
-  {
-    id: "blob_glitch",
-    tag: "Creature",
-    prompt: "The blob briefly flickers like a glitch. Investigate?",
-    yes: { cozy: +3, mischief: +12, result: "Something ancient stirs..." },
-    no:  { cozy: +6, mischief: -5, result: "You smooth it over gently." }
-  },
-  {
-    id: "final_balance",
-    tag: "Island",
-    prompt: "The cafe feels different now. Trust your instincts for the future?",
-    yes: { cozy: +10, mischief: +2, result: "The island feels like home." },
-    no:  { cozy: -6, mischief: +6, result: "Uncertainty hums in the air." }
   }
 ];
 
-// --- STATE (this shape ports nicely to Unity later) ---
+// --- STATE ---
 const initialState = () => ({
   turn: 1,
   idx: 0,
@@ -161,7 +79,6 @@ let state = initialState();
 
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-// Pure function: apply a choice to state (no DOM here)
 function applyChoice(card, choice, s) {
   const d = choice === "yes" ? card.yes : card.no;
   return {
@@ -190,7 +107,7 @@ function checkEnding(s) {
   return null;
 }
 
-// --- UI rendering ---
+// --- UI refs ---
 const cozyFill = document.getElementById("cozyFill");
 const mischiefFill = document.getElementById("mischiefFill");
 const cozyNum = document.getElementById("cozyNum");
@@ -202,7 +119,6 @@ const promptEl = document.getElementById("prompt");
 const toastEl = document.getElementById("toast");
 const endingEl = document.getElementById("ending");
 const endingText = document.getElementById("endingText");
-// Force ending overlay hidden on load (prevents "stuck ending" from showing)
 endingEl.classList.add("hidden");
 endingText.textContent = "";
 const restartBtn = document.getElementById("restart");
@@ -218,6 +134,8 @@ function getCard(s) {
 function showToast(text) {
   toastEl.textContent = text;
   toastEl.classList.remove("hidden");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => toastEl.classList.add("hidden"), 1200);
 }
 
 function render(s) {
@@ -239,7 +157,7 @@ function render(s) {
     noBtn.disabled = true;
   } else {
     endingEl.classList.add("hidden");
-    endingText.textContent = "";   
+    endingText.textContent = "";
     yesBtn.disabled = false;
     noBtn.disabled = false;
   }
@@ -249,15 +167,18 @@ function choose(choice) {
   if (!endingEl.classList.contains("hidden")) return;
   const card = getCard(state);
   state = applyChoice(card, choice, state);
-  showToast(state._lastResult);
+
   // Pufflet reaction hop
   pufflet.vy -= (choice === "yes" ? 1.2 : 0.7);
+
+  showToast(state._lastResult);
   render(state);
 }
 
 // Buttons
 yesBtn.addEventListener("click", () => choose("yes"));
 noBtn.addEventListener("click", () => choose("no"));
+
 restartBtn.addEventListener("click", () => {
   state = initialState();
   render(state);
@@ -295,45 +216,62 @@ cardEl.addEventListener("touchend", () => {
   else if (dx < -threshold) choose("no");
 });
 
-// --- PIXEL SCENE (Pufflet) ---
-
+// --- PIXEL SCENE (greenhouse + Pufflet) ---
 const canvas = document.getElementById("scene");
 const ctx = canvas.getContext("2d");
 
-// Pixel resolution
 const LOGICAL_W = 160;
 const LOGICAL_H = 90;
-const SCALE = 4;
 
-canvas.width = LOGICAL_W * SCALE;
-canvas.height = LOGICAL_H * SCALE;
-ctx.imageSmoothingEnabled = false;
-
-// Offscreen low-res buffer
-const off = new Image(); 
-bg.src = "assets/greenhouse_bg.png";
+// Draw at low-res on an offscreen buffer (pixel look)
+const off = document.createElement("canvas");
 off.width = LOGICAL_W;
 off.height = LOGICAL_H;
+
 const octx = off.getContext("2d");
 octx.imageSmoothingEnabled = false;
 
+// Background
+const bg = new Image();
+bg.src = "assets/greenhouse_bg.png";
+
+// Dust
+const dust = Array.from({ length: 12 }, () => ({
+  x: Math.random() * LOGICAL_W,
+  y: Math.random() * LOGICAL_H,
+  s: 0.2 + Math.random() * 0.6
+}));
+
 let pufflet = {
   x: 60,
-  y: 50,
-  vx: 0.8,
-  vy: 0.6,
-  r: 10
+  y: 55,
+  vx: 0.6,
+  vy: 0,
+  r: 8
 };
 
-let t = 0;
+function resizeCanvasToCSS() {
+  // Make the visible canvas match its CSS size (so it actually fills cardWrap)
+  const rect = canvas.getBoundingClientRect();
+  const w = Math.max(1, Math.floor(rect.width));
+  const h = Math.max(1, Math.floor(rect.height));
+
+  if (canvas.width !== w || canvas.height !== h) {
+    canvas.width = w;
+    canvas.height = h;
+    ctx.imageSmoothingEnabled = false;
+  }
+}
+window.addEventListener("resize", resizeCanvasToCSS);
+setTimeout(resizeCanvasToCSS, 0);
 
 function drawScene() {
-  t++;
+  resizeCanvasToCSS();
 
   // Clear offscreen
   octx.clearRect(0, 0, LOGICAL_W, LOGICAL_H);
 
-  // Background (greenhouse)
+  // Background
   if (bg.complete && bg.naturalWidth) {
     octx.drawImage(bg, 0, 0, LOGICAL_W, LOGICAL_H);
   } else {
@@ -341,28 +279,52 @@ function drawScene() {
     octx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
   }
 
-  // Cozy warm tint
+  // Cozy / Mischief tint
   octx.globalAlpha = 0.18 * (state.cozy / 100);
   octx.fillStyle = "#ffd9a8";
   octx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
-  
-  // Mischief purple tint
+
   octx.globalAlpha = 0.14 * (state.mischief / 100);
   octx.fillStyle = "#d6b3ff";
   octx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
-  
+
   octx.globalAlpha = 1;
 
-  // Move pufflet
+  // Dust
+  octx.fillStyle = "#ffffff";
+  octx.globalAlpha = 0.20;
+  for (const p of dust) {
+    p.x = (p.x + p.s * 0.20) % LOGICAL_W;
+    p.y = (p.y + p.s * 0.10) % LOGICAL_H;
+    octx.fillRect(p.x | 0, p.y | 0, 1, 1);
+  }
+  octx.globalAlpha = 1;
+
+  // Pufflet physics
+  pufflet.vy += 0.07;        // gravity
   pufflet.x += pufflet.vx;
   pufflet.y += pufflet.vy;
 
+  // Bounce X
   if (pufflet.x < pufflet.r || pufflet.x > LOGICAL_W - pufflet.r) pufflet.vx *= -1;
-  if (pufflet.y < pufflet.r || pufflet.y > LOGICAL_H - pufflet.r) pufflet.vy *= -1;
+
+  // Floor
+  const floorY = LOGICAL_H * 0.75;
+  if (pufflet.y > floorY) {
+    pufflet.y = floorY;
+    pufflet.vy *= -0.25;
+    if (Math.abs(pufflet.vy) < 0.05) pufflet.vy = 0;
+  }
 
   // Size reacts to Cozy
   const grow = 1 + (state.cozy / 100) * 0.4;
   const R = pufflet.r * grow;
+
+  // Shadow
+  octx.globalAlpha = 0.25;
+  octx.fillStyle = "#2b241f";
+  octx.fillRect((pufflet.x - 6) | 0, (pufflet.y + R - 1) | 0, 12, 2);
+  octx.globalAlpha = 1;
 
   // Body
   octx.fillStyle = "#ff9fbb";
@@ -377,26 +339,16 @@ function drawScene() {
 
   // Eyes
   octx.fillStyle = "#2b241f";
-  octx.fillRect(pufflet.x - 3, pufflet.y - 2, 2, 2);
-  octx.fillRect(pufflet.x + 1, pufflet.y - 2, 2, 2);
+  octx.fillRect((pufflet.x - 3) | 0, (pufflet.y - 2) | 0, 2, 2);
+  octx.fillRect((pufflet.x + 1) | 0, (pufflet.y - 2) | 0, 2, 2);
 
-  // Dust particles
-  octx.fillStyle = "#ffffff";
-  octx.globalAlpha = 0.2;
-  for (const p of dust) {
-    p.x = (p.x + p.s * 0.2) % LOGICAL_W;
-    p.y = (p.y + p.s * 0.1) % LOGICAL_H;
-    octx.fillRect(p.x|0, p.y|0, 1, 1);
-}
-octx.globalAlpha = 1;
-
-  // Blit scaled
+  // Blit scaled to visible canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.imageSmoothingEnabled = false;
   ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
 
   requestAnimationFrame(drawScene);
 }
 
 drawScene();
-// Init
 render(state);
