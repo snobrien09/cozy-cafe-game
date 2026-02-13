@@ -1,1 +1,1 @@
-# cozy-cafe-game
+# cozy-app
